@@ -1,11 +1,12 @@
 Rails.application.routes.draw do
   namespace :api do
-    get 'contacts/index'
-    get 'contacts/create'
-    get 'contacts/show'
-    get 'contacts/destroy'
+    get 'contacts', to: "contacts#index"
+    post 'contacts', to: "contacts#create"
+    get 'contacts/:id', to: "contacts#show"
+    delete 'contacts/:id', to: "contacts#destroy"
   end
   root 'homepage#index'
+  get '/*path' => 'homepage#index'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
