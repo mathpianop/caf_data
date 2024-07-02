@@ -1,12 +1,10 @@
 import React from "react";
-// import { Link } from "react-router-dom";
+import capitalizeFirstLetter from "../helpers/capitalizeFirstLetter";
 import { Drawer, Toolbar, List, ListItem, ListItemButton, ListItemText, Link } from '@mui/material';
 
 export default function Sidebar(props) {
   
-    function capitalizeFirstLetter(string) {
-        return string.charAt(0).toUpperCase() + string.slice(1);
-    }
+    
 
     const drawer = (
         <div>

@@ -4,7 +4,9 @@ import Contacts from "./menu/Contacts";
 import Sidebar from "./Sidebar";
 import Parishes from "./menu/Parishes";
 import Category from "./menu/Category";
-import {Box, AppBar} from "@mui/material";
+import {Box, AppBar, Typography} from "@mui/material";
+import Dashboard from "./menu/Dashboard";
+import capitalizeFirstLetter from "../helpers/capitalizeFirstLetter";
 
 export default function Main() {
 
@@ -13,6 +15,7 @@ export default function Main() {
   const location = useLocation();
   
   const menuItems = [
+    {name: "dashboard", element: <Dashboard />},
     {name: "art", element: <Category name="art"/>},
     {name: "writing", element: <Category name="writing"/>},
     {name: "photography", element: <Category name="photography"/>},
@@ -25,6 +28,7 @@ export default function Main() {
 
     <div className="Main">
       <Sidebar menuItems={menuItems} width={sidebarWidth}/>
+      {/* Everything but the Sidebar */}
       <Box
         sx={{
           width: { sm: `calc(100% - ${sidebarWidth}px)` },
@@ -38,13 +42,22 @@ export default function Main() {
             padding: "10px"
           }}
         >
-          {`${location.pathname.slice(1)}`}
+          <Typography variant="h4" gutterBottom>
+             {capitalizeFirstLetter(location.pathname.slice(1))}
+          </Typography>
         </AppBar>
+        <Box
+           sx={{
+            padding: "10px"
+           }}
+        >
         <Routes>
+          <Route path="/"/>
           {menuItems.map(item => {
             return <Route path={`/${item.name}`} key={item.name} element={item.element} />
           })}
         </Routes>
+        </Box>
         </Box>
       
     </div>

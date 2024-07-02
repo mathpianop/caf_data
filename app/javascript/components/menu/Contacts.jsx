@@ -22,13 +22,9 @@ export default function Contacts() {
     return (
 
         <div className="Home">
-
-
-        <h2>Contacts</h2>
         <ul>{contacts.map(contact => {
             return <li key={contact.id}>{`${contact.name}, ${contact.email}`}</li>
         })}</ul>
-
     </div>
     )
 }
