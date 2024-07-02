@@ -15,7 +15,6 @@ export default function Contacts() {
       .then((response) => response.json())
       .then((data) => {
         setContacts(data);
-        console.log(data);
       })
       .catch((error) => console.log(error));
   }, []);
@@ -27,7 +26,6 @@ export default function Contacts() {
 
         <h2>Contacts</h2>
         <ul>{contacts.map(contact => {
-            console.log(contact);
             return <li key={contact.id}>{`${contact.name}, ${contact.email}`}</li>
         })}</ul>
 
