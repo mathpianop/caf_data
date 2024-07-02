@@ -15,7 +15,6 @@ export default function Parishes() {
       .then((response) => response.json())
       .then((data) => {
         setParishes(data);
-        console.log(data)
       })
       .catch((error) => console.log(error));
   }, []);
@@ -23,8 +22,6 @@ export default function Parishes() {
     return (
 
         <div className="Home">
-
-
         <h2>Parishes</h2>
         <ul>{parishes.map(parish => {
             return <li key={parish.id}>{`${parish.name}: ${parish.contact.name}`}</li>
