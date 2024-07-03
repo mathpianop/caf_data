@@ -4,6 +4,7 @@ import Contacts from "./menu/Contacts";
 import Sidebar from "./Sidebar";
 import Parishes from "./menu/Parishes";
 import Category from "./menu/Category";
+import Summary from "./menu/Summary"
 import {Box, AppBar, Typography} from "@mui/material";
 import Dashboard from "./menu/Dashboard";
 import capitalizeFirstLetter from "../helpers/capitalizeFirstLetter";
@@ -21,7 +22,8 @@ export default function Main() {
     {name: "photography", element: <Category name="photography"/>},
     {name: "poetry", element: <Category name="poetry"/>},
     {name: "parishes", element: <Parishes/>},
-    {name: "contacts", element: <Contacts/>}
+    {name: "contacts", element: <Contacts/>},
+    {name: "summary", element: <Summary />}
   ];
 
   return (

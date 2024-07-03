@@ -3,8 +3,6 @@ import React, { useState, useEffect } from "react";
 export default function Parishes() {
     const [parishes, setParishes] = useState([]);
     useEffect(() => {
-
-
     fetch("/api/parishes", {
       method: "GET",
       headers: {
@@ -21,9 +19,9 @@ export default function Parishes() {
 
     return (
 
-        <div className="Home">
+        <div className="Parishes">
         <ul>{parishes.map(parish => {
-            return <li key={parish.id}>{`${parish.name}: ${parish.contact.name}`}</li>
+            return <li key={parish.id}>{`${parish.name}`}</li>
         })}</ul>
 
     </div>
