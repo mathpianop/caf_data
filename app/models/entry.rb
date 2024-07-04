@@ -24,7 +24,7 @@ class Entry < ApplicationRecord
   end
 
   def self.sort_by_score(entries)
-    entries.sort_by(&:score)
+    entries.sort_by(&:score).reverse
   end
 
   def self.uniq_scores_above(ranking_entry, uniq_scores)
@@ -46,12 +46,26 @@ class Entry < ApplicationRecord
           .transform_values {|category| category.group_by(&:grade)}
   end
 
+  def self.by_parish_and_category
+    Entry.all
+          .group_by {|entry| entry.parish.id}
+          .transform_values {|parish| parish.group_by(&:category)}
+  end
+
   def self.by_category_and_grade_with_rank
     Entry.by_category_and_grade
       .transform_values do |category|
         category.transform_values do |grade_entries|
-          p "Hello", add_ranks(grade_entries)
           sort_by_score(add_ranks(grade_entries))
+      end
+    end
+  end
+
+  def self.by_parish_and_category_with_rank
+    Entry.by_parish_and_category
+      .transform_values do |parish|
+        parish.transform_values do |category_entries|
+          sort_by_score(add_ranks(category_entries))
       end
     end
   end

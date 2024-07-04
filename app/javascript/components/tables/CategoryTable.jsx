@@ -1,23 +1,23 @@
 import React from "react";
-import { TableContainer, Table, TableHead, TableRow, TableBody, TableCell, Paper } from "@mui/material";
-import GradeTablet from "./GradeTablet";
+import { TableContainer, Table, Paper } from "@mui/material";
+import Tablet from "./GenericTablet"
+import GenericTableHead from "./GenericTableHead";
 
 export default function CategoryTable(props) {
     
-
+   const columns = [["name"], ["rank"], ["parish", "name"], ["score"]]
 
     return (
         <TableContainer component={Paper}>
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
-            <TableHead sx={{ backgroundColor: "#000000"}}>
-                <TableRow >
-                    <TableCell sx={{ fontWeight: "bold", color: "#ffffff"}} >Name</TableCell>
-                    <TableCell sx={{ fontWeight: "bold", color: "#ffffff"}} align="left">Parish</TableCell>
-                    <TableCell sx={{ fontWeight: "bold", color: "#ffffff"}} align="left">Score</TableCell>
-                </TableRow>
-            </TableHead>
+            <GenericTableHead columns={columns}/>
                 {Object.entries(props.grades).map(gradeGroupPair => {
-                    return <GradeTablet key={gradeGroupPair[0]} gradeNumber={gradeGroupPair[0]} grades={gradeGroupPair[1]} />
+                    return <Tablet 
+                                subCategory={`Grade ${gradeGroupPair[0]}`} 
+                                key={gradeGroupPair[1][0].id}
+                                columns={columns} 
+                                collections={gradeGroupPair[1]}
+                            />
                 })}
             </Table>
     </TableContainer>

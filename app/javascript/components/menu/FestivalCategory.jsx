@@ -1,22 +1,23 @@
 import React, { useState, useEffect } from "react";
 import Category from "../tables/Category";
+import capitalizeFirstLetter from "../../helpers/capitalizeFirstLetter";
 
-export default function Summary() {
+export default function FestivalCategory(props) {
     const [entries, setEntries] = useState();
 
 
     const content = function() {
-        if (entries) { 
-            return (Object.entries(entries.categories).map((category) => {
-                //console.log(category[1]);
-                return <Category 
-                            key={category[0]} 
-                            categoryName={category[0]} 
-                            grades={category[1]}
-                            summary={true}
-                        />
-            }))
+
+        if (entries) {
+            const grades = entries.categories[props.name]
+
+            if (grades) { 
+                return <Category categoryName={props.name} grades={grades}/>
+            } else {
+                return <i>{`No entries in the ${capitalizeFirstLetter(props.name)} category yet`}</i>
+            }
         }
+
     }
 
 
@@ -39,7 +40,7 @@ export default function Summary() {
 
   return (
 
-    <div className="Summary">
+    <div className="Category">
        {content()}
     </div>
 )

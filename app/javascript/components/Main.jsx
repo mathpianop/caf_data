@@ -3,7 +3,7 @@ import { Routes, Route, useLocation } from "react-router-dom";
 import Contacts from "./menu/Contacts";
 import Sidebar from "./Sidebar";
 import Parishes from "./menu/Parishes";
-import Category from "./menu/Category";
+import FestivalCategory from "./menu/FestivalCategory";
 import Summary from "./menu/Summary"
 import {Box, AppBar, Typography} from "@mui/material";
 import Dashboard from "./menu/Dashboard";
@@ -17,10 +17,10 @@ export default function Main() {
   
   const menuItems = [
     {name: "dashboard", element: <Dashboard />},
-    {name: "art", element: <Category name="art"/>},
-    {name: "writing", element: <Category name="writing"/>},
-    {name: "photography", element: <Category name="photography"/>},
-    {name: "poetry", element: <Category name="poetry"/>},
+    {name: "art", element: <FestivalCategory name="art"/>},
+    {name: "writing", element: <FestivalCategory name="writing"/>},
+    {name: "photography", element: <FestivalCategory name="photography"/>},
+    {name: "poetry", element: <FestivalCategory name="poetry"/>},
     {name: "parishes", element: <Parishes/>},
     {name: "contacts", element: <Contacts/>},
     {name: "summary", element: <Summary />}
@@ -45,7 +45,7 @@ export default function Main() {
           }}
         >
           <Typography variant="h4" gutterBottom>
-             {capitalizeFirstLetter(location.pathname.slice(1))}
+             {capitalizeFirstLetter(location.pathname.slice(1)) || "Dashboard"}
           </Typography>
         </AppBar>
         <Box
@@ -54,7 +54,7 @@ export default function Main() {
            }}
         >
         <Routes>
-          <Route path="/"/>
+          <Route path="/" element={<Dashboard />}/>
           {menuItems.map(item => {
             return <Route path={`/${item.name}`} key={item.name} element={item.element} />
           })}
