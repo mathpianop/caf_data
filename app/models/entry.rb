@@ -1,4 +1,6 @@
 class Entry < ApplicationRecord
+  attr_accessor :rank
+
   belongs_to :parish
 
   validates :name, presence: true
@@ -12,7 +14,46 @@ class Entry < ApplicationRecord
 
   validates :grade, presence: true, comparison: {greater_than_or_equal_to: 1, less_than_or_equal_to: 12}
 
+
   def is_written_category?
     category == :writing || category == :poetry
   end
+
+  def my_calc_var
+    self.score + 1
+  end
+
+  def self.sort_by_score(entries)
+    entries.sort_by(&:score)
+  end
+
+  def self.uniq_scores_above(ranking_entry, uniq_scores)
+    uniq_scores.count {|uniq_score| uniq_score > ranking_entry.score}
+  end
+
+  def self.add_ranks(entries)
+    uniq_scores = entries.map(&:score).uniq
+    entries.map do |entry| 
+      rank = uniq_scores_above(entry, uniq_scores) + 1
+      entry.rank = rank
+      entry
+    end
+  end 
+
+  def self.by_category_and_grade
+    Entry.all
+          .group_by(&:category)
+          .transform_values {|category| category.group_by(&:grade)}
+  end
+
+  def self.by_category_and_grade_with_rank
+    Entry.by_category_and_grade
+      .transform_values do |category|
+        category.transform_values do |grade_entries|
+          p "Hello", add_ranks(grade_entries)
+          sort_by_score(add_ranks(grade_entries))
+      end
+    end
+  end
+
 end

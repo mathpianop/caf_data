@@ -7,7 +7,7 @@ export default function Summary() {
 
     const content = function() {
         if (entries) { 
-            return (entries.category.map(category => {
+            return (Object.entries(entries.categories).map((category) => {
                 //console.log(category[1]);
                 return <Category key={category[0]} categoryName={category[0]} grades={category[1]}/>
             }))
