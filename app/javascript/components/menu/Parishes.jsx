@@ -32,6 +32,8 @@ export default function Parishes() {
     }
    }
 
+   
+
     useEffect(() => {
     fetch("/api/parishes", {
       method: "GET",

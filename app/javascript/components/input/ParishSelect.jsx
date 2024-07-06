@@ -19,9 +19,9 @@ export default function ParishSelect(props) {
             label="Parish"
             onChange={handleChange}
             >
-            {props.parishes.map(parish => {
-                return <MenuItem key={parish.id} value={parish.id}>{parish.name}</MenuItem>
-            })}
+                {props.parishes.map(parish => {
+                    return <MenuItem key={parish.id} value={parish.id}>{parish.name}</MenuItem>
+                })}
 
             </Select>
         </FormControl>

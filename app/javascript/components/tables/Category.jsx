@@ -1,7 +1,9 @@
 import React from "react";
+import { useState } from "react";
 import CategoryHeader from "./CategoryHeader";
 import CategoryTable from "./CategoryTable";
 import {Box} from "@mui/material";
+
 
 export default function Category(props) {
 
@@ -10,6 +12,9 @@ export default function Category(props) {
             return <CategoryHeader categoryName={props.categoryName}/>
         }
     }
+
+
+
     return (
         <Box 
             className="Category"
@@ -18,6 +23,7 @@ export default function Category(props) {
         >
             {header()}
             <CategoryTable grades={props.grades} />
+         
         </Box>
     )
 }

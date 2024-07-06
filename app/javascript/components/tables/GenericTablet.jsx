@@ -13,13 +13,20 @@ export default function Tablet(props) {
            
             <TableBody>
             <TableRow sx={{ backgroundColor: "#999999"}}>
-                    <TableCell align="center" colSpan={4} sx={{ color: "#ffffff"}}>{props.subCategory}</TableCell>
+                    <TableCell 
+                        align="center" 
+                        colSpan={props.columns.length + 1} 
+                        sx={{ color: "#ffffff"}}
+                    >  
+                        {props.subCategory}
+                    </TableCell>
                 </TableRow>
             {props.collections.map((entry) => (
                 <TableRow
                 key={entry.name + entry.grade + entry.parish.name}
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                 >
+                    <TableCell></TableCell>
                     {props.columns.map((column, index) => {
                         return <TableCell key={entry.id + index} align="left">{getColumnData(entry, column)}</TableCell>
                     })}
