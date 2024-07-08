@@ -41,7 +41,15 @@ export default function FestivalCategory(props) {
                 )
             } else {
                 return (
-                    <Button onClick={() => setFormOpen(true)}>Add Entry</Button>
+                    <Button 
+                        variant="contained" 
+                        onClick={() => setFormOpen(true)}
+                        sx={{
+                            bgcolor: "#000000"
+                        }}
+                    >  
+                        + Add Entry
+                    </Button>
                 )
             }
            

@@ -1,19 +1,29 @@
-import React from "react";
-import { Routes, Route, useLocation } from "react-router-dom";
+import React, { useState } from "react";
+import { Routes, Route} from "react-router-dom";
 import Contacts from "./menu/Contacts";
 import Sidebar from "./Sidebar";
 import Parishes from "./menu/Parishes";
 import FestivalCategory from "./menu/FestivalCategory";
 import Summary from "./menu/Summary"
-import {Box, AppBar, Typography} from "@mui/material";
+import {Box} from "@mui/material";
 import Dashboard from "./menu/Dashboard";
-import capitalizeFirstLetter from "../helpers/capitalizeFirstLetter";
+import MyAppBar from "./MyAppBar";
+
 
 export default function Main() {
 
-  const sidebarWidth = 180;
+  const sidebarWidth = 150;
 
-  const location = useLocation();
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  const openDrawer = function() {
+    setSidebarOpen(true);
+  }
+
+  const closeDrawer = function() {
+    setSidebarOpen(false);
+  }
+ 
   
   const menuItems = [
     {name: "dashboard", element: <Dashboard />},
@@ -29,25 +39,20 @@ export default function Main() {
   return (
 
     <div className="Main">
-      <Sidebar menuItems={menuItems} width={sidebarWidth}/>
+      <Sidebar 
+        menuItems={menuItems} 
+        width={sidebarWidth} 
+        open={sidebarOpen} 
+        closeDrawer={closeDrawer}
+      />
       {/* Everything but the Sidebar */}
       <Box
         sx={{
-          width: { sm: `calc(100% - ${sidebarWidth}px)` },
-          ml: { sm: `${sidebarWidth}px` }
+          width: { xs: "100%", sm: `calc(100% - ${sidebarWidth}px)` },
+          ml: { xs: 0, sm: `${sidebarWidth}px` }
         }}
-      
       >
-        <AppBar
-          position="sticky"
-          sx={{
-            padding: "10px"
-          }}
-        >
-          <Typography variant="h4" gutterBottom>
-             {capitalizeFirstLetter(location.pathname.slice(1)) || "Dashboard"}
-          </Typography>
-        </AppBar>
+        <MyAppBar sidebarOpen={sidebarOpen} openDrawer={openDrawer}/>
         <Box
            sx={{
             padding: "10px"

@@ -12,7 +12,7 @@ export default function NumberSelect(props) {
 
     return (
 
-        <FormControl fullWidth>
+        <FormControl fullWidth required>
             <InputLabel id={props.id}>{props.label}</InputLabel>
             <Select
                 labelId={props.id}

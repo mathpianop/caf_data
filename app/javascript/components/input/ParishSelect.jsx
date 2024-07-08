@@ -10,7 +10,7 @@ export default function ParishSelect(props) {
     }
 
     return (
-        <FormControl fullWidth>
+        <FormControl fullWidth required>
             <InputLabel id="parish-select-label">Parish</InputLabel>
             <Select
             labelId="parish-select-label"
@@ -18,6 +18,7 @@ export default function ParishSelect(props) {
             value={props.parishId}
             label="Parish"
             onChange={handleChange}
+            required={props.required}
             >
                 {props.parishes.map(parish => {
                     return <MenuItem key={parish.id} value={parish.id}>{parish.name}</MenuItem>
