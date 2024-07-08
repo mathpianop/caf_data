@@ -3,7 +3,7 @@ import ParishSelect from "./ParishSelect";
 import {TextField, FormGroup, Button} from "@mui/material"
 import NumberSelect from "./NumberSelect";
 
-export default function AddEntryForm(props) {
+export default function AddEntryForm({ formProps, setFormOpen }) {
 
     const [parishId, setParishId] = useState("")
     const [score, setScore] = useState("")
@@ -11,31 +11,37 @@ export default function AddEntryForm(props) {
 
     const handleParishChange = function(id) {
         setParishId(id)
-        props.formData.set("parishId", id)
+        formProps.formData.set("parishId", id)
     }
 
     const handleNameChange = function(event) {
-        props.formData.set("name", event.target.value)
+        formProps.formData.set("name", event.target.value)
     }
 
     const handleScoreChange = function(e) {
         console.log(e.target.value)
         setScore(e.target.value);
-        props.formData.set("score", e.target.value)
+        formProps.formData.set("score", e.target.value)
     }
 
     const handleGradeChange = function(e) {
         console.log(e.target.value)
         setGrade(e.target.value);
-        props.formData.set("grade", e.target.value)
+        formProps.formData.set("grade", e.target.value)
     }
 
-    
+    const closeForm = function() {
+        setFormOpen(false);
+    }
 
 
     return (
         <form>
-            <ParishSelect parishes={props.parishes} setParishId={handleParishChange} parishId={parishId}/>
+            <ParishSelect 
+                parishes={formProps.parishes} 
+                setParishId={handleParishChange} 
+                parishId={parishId}
+            />
             <FormGroup>
                 <TextField 
                     id="Name" 
@@ -47,7 +53,7 @@ export default function AddEntryForm(props) {
                     value={score} 
                     handleChange={handleScoreChange} 
                     min={0}
-                    max={props.maxScore}
+                    max={formProps.maxScore}
                     label="Score"
                     id="score-select"
                 />
@@ -60,7 +66,9 @@ export default function AddEntryForm(props) {
                     label="Grade"
                 />
             </FormGroup>
-            <Button onClick={props.submitForm}>Hello</Button>
+            <Button onClick={closeForm}>Cancel</Button>
+            <Button onClick={formProps.submitForm}>Save</Button>
+            
         </form>
     )
 }

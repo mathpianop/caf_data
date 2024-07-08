@@ -15,7 +15,7 @@ export default function Tablet(props) {
             <TableRow sx={{ backgroundColor: "#999999"}}>
                     <TableCell 
                         align="center" 
-                        colSpan={props.columns.length + 1} 
+                        colSpan={props.columns.length} 
                         sx={{ color: "#ffffff"}}
                     >  
                         {props.subCategory}
@@ -26,7 +26,7 @@ export default function Tablet(props) {
                 key={entry.name + entry.grade + entry.parish.name}
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                 >
-                    <TableCell></TableCell>
+                    {/* <TableCell></TableCell> */}
                     {props.columns.map((column, index) => {
                         return <TableCell key={entry.id + index} align="left">{getColumnData(entry, column)}</TableCell>
                     })}

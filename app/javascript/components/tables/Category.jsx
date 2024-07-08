@@ -23,7 +23,6 @@ export default function Category(props) {
         >
             {header()}
             <CategoryTable grades={props.grades} />
-         
         </Box>
     )
 }

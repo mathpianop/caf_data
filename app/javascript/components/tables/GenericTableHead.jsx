@@ -7,7 +7,7 @@ export default function GenericTableHead(props) {
     return (
         <TableHead sx={{ backgroundColor: "#000000"}}>
                 <TableRow>
-                    <TableCell sx={{ fontWeight: "bold", color: "#ffffff" }}>+</TableCell>
+                    {/* <TableCell sx={{ fontWeight: "bold", color: "#ffffff" }}>+</TableCell> */}
                     {props.columns.map(column => {
                         return  <TableCell 
                                     sx={{ fontWeight: "bold", color: "#ffffff" }}

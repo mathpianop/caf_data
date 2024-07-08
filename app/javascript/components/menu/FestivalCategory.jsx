@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from "react";
 import Category from "../tables/Category";
 import capitalizeFirstLetter from "../../helpers/capitalizeFirstLetter";
-import AddEntryForm from "../input/AddEntryForm"
+import AddEntryCard from "../input/AddEntryCard";
+import {Button} from "@mui/material"
 
 export default function FestivalCategory(props) {
     const [entries, setEntries] = useState();
     const [formData, setFormData] = useState(new FormData());
     const [parishes, setParishes] = useState();
+    const [formOpen, setFormOpen] = useState(false);
 
 
-    const content = function() {
+    const table = function() {
 
         if (entries) {
             const grades = entries.categories[props.name]
@@ -23,6 +25,29 @@ export default function FestivalCategory(props) {
 
     }
 
+    const entryFormOrButton = function() {
+        if (parishes) {
+            if (formOpen) {
+                return (
+                    <AddEntryCard 
+                        formProps={{
+                            formData: formData, 
+                            parishes: parishes, 
+                            maxScore: maxScore(),
+                            submitForm: submitForm
+                        }}
+                        setFormOpen={setFormOpen}
+                    />
+                )
+            } else {
+                return (
+                    <Button onClick={() => setFormOpen(true)}>Add Entry</Button>
+                )
+            }
+           
+        }
+    }
+
     const maxScore = function() {
         if (props.name === "art" || props.name === "photography") {
             return 48
@@ -31,17 +56,7 @@ export default function FestivalCategory(props) {
         }
     }
 
-    const formContent = function() {
-        if (parishes) {
-            return <AddEntryForm 
-                        formData={formData} 
-                        parishes={parishes} 
-                        maxScore={maxScore()}
-                        submitForm={submitForm}
-                    />
-        }
-    }
-
+    
     const getSendableFormData = function() {
         return JSON.stringify({
             name: formData.get("name"),
@@ -104,14 +119,17 @@ export default function FestivalCategory(props) {
         .catch((error) => console.log(error));
     }, []);
 
+
     
 
 
   return (
 
     <div className="FestivalCategory">
-       {content()}
-       {formContent()}
+        {entryFormOrButton()}
+       {table()}
+      
+
 
     </div>
 )
