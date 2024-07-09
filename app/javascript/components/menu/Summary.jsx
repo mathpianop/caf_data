@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Category from "../tables/Category";
+import fetchResource from "../../helpers/fetchResource";
 
 export default function Summary() {
     const [entries, setEntries] = useState();
@@ -21,18 +22,7 @@ export default function Summary() {
 
 
     useEffect(() => {
-        fetch("/api/entries", {
-        method: "GET",
-        headers: {
-            // "X-RapidAPI-Key": "your-api-key",
-            // "X-RapidAPI-Host": "jokes-by-api-ninjas.p.rapidapi.com",
-        },
-        })
-        .then((response) => response.json())
-        .then((data) => {
-            setEntries(data);
-        })
-        .catch((error) => console.log(error));
+        fetchResource("entries", setEntries)
     }, []);
 
 

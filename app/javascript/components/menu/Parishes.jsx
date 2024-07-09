@@ -3,6 +3,7 @@ import { Box } from "@mui/material";
 
 import ParishSelect from "../input/ParishSelect";
 import ParishTable from "../tables/ParishTable";
+import fetchResource from "../../helpers/fetchResource";
 
 export default function Parishes() {
     const [parishes, setParishes] = useState([]);
@@ -35,34 +36,11 @@ export default function Parishes() {
    
 
     useEffect(() => {
-    fetch("/api/parishes", {
-      method: "GET",
-      headers: {
-        // "X-RapidAPI-Key": "your-api-key",
-        // "X-RapidAPI-Host": "jokes-by-api-ninjas.p.rapidapi.com",
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        setParishes(data);
-      })
-      .catch((error) => console.log(error));
+      fetchResource("entries", setEntries)
+    fetchResource("parishes", setParishes)
   }, []);
 
-  useEffect(() => {
-    fetch("/api/entries", {
-    method: "GET",
-    headers: {
-        // "X-RapidAPI-Key": "your-api-key",
-        // "X-RapidAPI-Host": "jokes-by-api-ninjas.p.rapidapi.com",
-    },
-    })
-    .then((response) => response.json())
-    .then((data) => {
-        setEntries(data);
-    })
-    .catch((error) => console.log(error));
-}, []);
+
 
     return (
         <div className="Parishes">

@@ -6,7 +6,7 @@ import AddEntryForm from "./AddEntryForm";
 export default function AddEntryCard(props) {
     return (
         <Container >
-            <Card raised sx={{maxWidth: "sm"}}>
+            <Card raised sx={{maxWidth: "sm", mb: "10px"}}>
                 <CardHeader
                     sx={{
                         bgcolor: "#000000",

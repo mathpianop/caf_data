@@ -3,6 +3,7 @@ import Category from "../tables/Category";
 import capitalizeFirstLetter from "../../helpers/capitalizeFirstLetter";
 import AddEntryCard from "../input/AddEntryCard";
 import {Button} from "@mui/material"
+import fetchResource from "../../helpers/fetchResource";
 
 export default function FestivalCategory(props) {
     const [entries, setEntries] = useState();
@@ -19,7 +20,7 @@ export default function FestivalCategory(props) {
             if (grades) { 
                 return <Category categoryName={props.name} grades={grades}/>
             } else {
-                return <i>{`No entries in the ${capitalizeFirstLetter(props.name)} category yet`}</i>
+                return <div><i>{`No entries in the ${capitalizeFirstLetter(props.name)} category yet`}</i></div>
             }
         }
 
@@ -45,7 +46,8 @@ export default function FestivalCategory(props) {
                         variant="contained" 
                         onClick={() => setFormOpen(true)}
                         sx={{
-                            bgcolor: "#000000"
+                            bgcolor: "#000000",
+                            mb: "10px"
                         }}
                     >  
                         + Add Entry
@@ -75,58 +77,29 @@ export default function FestivalCategory(props) {
         })
     }
 
-    const fetchEntries = function() {
-        fetch("/api/entries", {
-            method: "GET",
-            headers: {
-                // "X-RapidAPI-Key": "your-api-key",
-                // "X-RapidAPI-Host": "jokes-by-api-ninjas.p.rapidapi.com",
-            },
-            })
-            .then((response) => response.json())
-            .then((data) => {
-                setEntries(data);
-            })
-            .catch((error) => console.log(error));
-    }
+    
 
     const submitForm = function() {
         fetch("/api/entries", {
             method: "POST",
             headers: {
-                // "X-CSRF-Token": token,
                 "Content-Type": "application/json",
                 },
             body: getSendableFormData()
             })
             .then((response) => response.json())
             .then((data) => {
-                console.log(data)
-                fetchEntries();
+                fetchResource("entries", setEntries);
+                setFormOpen(false);
             })
             .catch((error) => console.log(error));
     }
  
 
     useEffect(() => {
-        fetchEntries();
+        fetchResource("entries", setEntries);
+        fetchResource("parishes", setParishes);
     }, []);
-
-    useEffect(() => {
-        fetch("/api/parishes", {
-        method: "GET",
-        headers: {
-            // "X-RapidAPI-Key": "your-api-key",
-            // "X-RapidAPI-Host": "jokes-by-api-ninjas.p.rapidapi.com",
-        },
-        })
-        .then((response) => response.json())
-        .then((data) => {
-            setParishes(data);
-        })
-        .catch((error) => console.log(error));
-    }, []);
-
 
     
 
@@ -136,8 +109,6 @@ export default function FestivalCategory(props) {
     <div className="FestivalCategory">
         {entryFormOrButton()}
        {table()}
-      
-
 
     </div>
 )

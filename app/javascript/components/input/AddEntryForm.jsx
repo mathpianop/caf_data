@@ -85,7 +85,6 @@ export default function AddEntryForm({ formProps, setFormOpen }) {
                     />
                </Grid>
             </Grid>
-           {console.log(formProps.formData.get("name"))}
             <Button onClick={closeForm}>Cancel</Button>
             <Button onClick={formProps.submitForm} disabled={!allFieldsFilled()}>Save</Button>
             
