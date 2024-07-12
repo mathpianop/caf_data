@@ -17,8 +17,14 @@ export default function Parishes() {
 
  
    const parishResults = function() {
+    
     if (parishId !== "") {
-      return <ParishTable categories={entries.parishes[parishId]}/>
+      if (entries[parishId]) {
+        return <ParishTable categories={entries.parishes[parishId]}/>
+      } else {
+        return <i>No entries for this parish yet!</i>
+      }
+      
     }
    }
 

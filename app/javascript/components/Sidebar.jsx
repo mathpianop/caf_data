@@ -1,6 +1,7 @@
 import React from "react";
 import capitalizeFirstLetter from "../helpers/capitalizeFirstLetter";
-import { Drawer, Toolbar, List, ListItem, ListItemButton, ListItemText, Link, IconButton } from '@mui/material';
+import { Drawer, List, ListItem, ListItemButton, ListItemText, IconButton, Box } from '@mui/material';
+import { Link } from "react-router-dom";
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 
 export default function Sidebar(props) {
@@ -24,20 +25,22 @@ export default function Sidebar(props) {
         <div>
           <List>
             {props.menuItems.map((item) => {
-                return  <Link href={`/${item.name}`}
-                            sx={{
-                                color: "black",
-                                "textDecoration": "none"
-                                }}
+                return  <Link to={`/${item.name}`}
                             key={item.name}
+                            style={{
+                                textDecoration: "none",
+                                color: "#000000"
+                            }}
+                            onClick={() => props.closeDrawer()}
                             >
-                    <ListItem disablePadding>
-                        <ListItemButton>
-                            <ListItemText>
-                                    {capitalizeFirstLetter(item.name)}
-                            </ListItemText>
-                        </ListItemButton>
-                    </ListItem>
+                    
+                        <ListItem disablePadding>
+                            <ListItemButton>
+                                <ListItemText>
+                                        {capitalizeFirstLetter(item.name)}
+                                </ListItemText>
+                            </ListItemButton>
+                        </ListItem>
                 </Link>
             })}
               

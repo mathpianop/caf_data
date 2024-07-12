@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Routes, Route} from "react-router-dom";
 import Contacts from "./menu/Contacts";
 import Sidebar from "./Sidebar";
@@ -8,6 +8,7 @@ import Summary from "./menu/Summary"
 import {Box} from "@mui/material";
 import Dashboard from "./menu/Dashboard";
 import MyAppBar from "./MyAppBar";
+import fetchResource from "../helpers/fetchResource";
 
 
 export default function Main() {
@@ -15,6 +16,8 @@ export default function Main() {
   const sidebarWidth = 150;
 
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [categories, setCategories] = useState();
+  
 
   const openDrawer = function() {
     setSidebarOpen(true);
@@ -25,22 +28,35 @@ export default function Main() {
   }
  
   
-  const menuItems = [
-    {name: "dashboard", element: <Dashboard />},
-    {name: "art", element: <FestivalCategory name="art"/>},
-    {name: "writing", element: <FestivalCategory name="writing"/>},
-    {name: "photography", element: <FestivalCategory name="photography"/>},
-    {name: "poetry", element: <FestivalCategory name="poetry"/>},
-    {name: "parishes", element: <Parishes/>},
-    {name: "contacts", element: <Contacts/>},
-    {name: "summary", element: <Summary />}
-  ];
+  const menuItems = function() {
+
+    const basicItems = [
+      {name: "dashboard", element: <Dashboard />},
+      {name: "parishes", element: <Parishes />},
+      {name: "contacts", element: <Contacts />},
+      {name: "summary", element: <Summary />}
+    ];
+
+    if (categories) {
+      categories.forEach(category => {
+        basicItems.splice(1,0, {
+            name: category.name, element: <FestivalCategory category={category}/>
+          })
+      })
+    }
+      
+    return basicItems;
+}
+
+  useEffect(() => {
+    fetchResource("categories", setCategories);
+  }, [])
 
   return (
 
     <div className="Main">
       <Sidebar 
-        menuItems={menuItems} 
+        menuItems={menuItems()} 
         width={sidebarWidth} 
         open={sidebarOpen} 
         closeDrawer={closeDrawer}
@@ -60,7 +76,7 @@ export default function Main() {
         >
         <Routes>
           <Route path="/" element={<Dashboard />}/>
-          {menuItems.map(item => {
+          {menuItems().map(item => {
             return <Route path={`/${item.name}`} key={item.name} element={item.element} />
           })}
         </Routes>

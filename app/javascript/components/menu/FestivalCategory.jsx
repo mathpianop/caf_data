@@ -2,8 +2,10 @@ import React, { useState, useEffect } from "react";
 import Category from "../tables/Category";
 import capitalizeFirstLetter from "../../helpers/capitalizeFirstLetter";
 import AddEntryCard from "../input/AddEntryCard";
-import {Button} from "@mui/material"
+import {Button, Box} from "@mui/material"
 import fetchResource from "../../helpers/fetchResource";
+import entriesWithRibbons from "../../helpers/entriesWithRibbons";
+import MyAppBar from "../MyAppBar";
 
 export default function FestivalCategory(props) {
     const [entries, setEntries] = useState();
@@ -11,22 +13,43 @@ export default function FestivalCategory(props) {
     const [parishes, setParishes] = useState();
     const [formOpen, setFormOpen] = useState(false);
 
+    
+
 
     const table = function() {
 
         if (entries) {
-            const grades = entries.categories[props.name]
+            console.log(entries)
+            const grades = entries.categories[props.category.id]
 
             if (grades) { 
-                return <Category categoryName={props.name} grades={grades}/>
+                return <Category 
+                            categoryName={props.category.name} 
+                            grades={grades}
+                        />
             } else {
-                return <div><i>{`No entries in the ${capitalizeFirstLetter(props.name)} category yet`}</i></div>
+                return <div><i>{`No entries in the ${capitalizeFirstLetter(props.category.name)} category yet`}</i></div>
             }
         }
 
     }
 
-    const entryFormOrButton = function() {
+    const addEntryButton = function() {
+        if (!formOpen) {
+            return <Button 
+                        variant="contained" 
+                        onClick={() => setFormOpen(true)}
+                        sx={{
+                            bgcolor: "#000000",
+                            mb: "10px"
+                        }}
+                    >  
+                        + Add Entry
+                    </Button>
+        }
+    }
+
+    const entryForm = function() {
         if (parishes) {
             if (formOpen) {
                 return (
@@ -40,26 +63,13 @@ export default function FestivalCategory(props) {
                         setFormOpen={setFormOpen}
                     />
                 )
-            } else {
-                return (
-                    <Button 
-                        variant="contained" 
-                        onClick={() => setFormOpen(true)}
-                        sx={{
-                            bgcolor: "#000000",
-                            mb: "10px"
-                        }}
-                    >  
-                        + Add Entry
-                    </Button>
-                )
             }
            
         }
     }
 
     const maxScore = function() {
-        if (props.name === "art" || props.name === "photography") {
+        if (props.category.name === "art" || props.category.name === "photography") {
             return 48
         } else {
             return 60
@@ -72,7 +82,7 @@ export default function FestivalCategory(props) {
             name: formData.get("name"),
             grade: formData.get("grade"),
             parish_id: formData.get("parishId"),
-            category: props.name,
+            category_id: props.category.id,
             score: formData.get("score")
         })
     }
@@ -107,8 +117,11 @@ export default function FestivalCategory(props) {
   return (
 
     <div className="FestivalCategory">
-        {entryFormOrButton()}
-       {table()}
+       
+                 {entryForm()}
+                 {addEntryButton()}
+                 {table()}
+
 
     </div>
 )

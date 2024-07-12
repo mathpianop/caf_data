@@ -9,11 +9,13 @@ export default function Summary() {
     const content = function() {
         if (entries) { 
             return (Object.entries(entries.categories).map((category) => {
-                //console.log(category[1]);
+                const categoryId = category[0]
+                const grades = category[1]
+                const arbitraryEntry = Object.values(grades)[0][0]
                 return <Category 
-                            key={category[0]} 
-                            categoryName={category[0]} 
-                            grades={category[1]}
+                            key={categoryId} 
+                            categoryName={arbitraryEntry.category.name} 
+                            grades={grades}
                             summary={true}
                         />
             }))
@@ -30,6 +32,7 @@ export default function Summary() {
   return (
 
     <div className="Summary">
+   
        {content()}
     </div>
 )

@@ -5,12 +5,12 @@ class Api::EntriesController < ApplicationController
     @entries_by_category = Entry.by_category_and_grade_with_rank
     @entries_by_parish = Entry.by_parish_and_category_with_rank
 
-    render json: {categories: @entries_by_category, parishes: @entries_by_parish}, include: :parish, methods: :rank
+    render json: {categories: @entries_by_category, parishes: @entries_by_parish}, include: [:parish, :category], methods: [:rank, :ribbon]
   end
 
   def create
     @entry = Entry.new(entry_params)
-    if @entry.save
+    if @entry.save!
       render json: @entry
     else
       p @entry
@@ -26,6 +26,6 @@ class Api::EntriesController < ApplicationController
 
   private
   def entry_params
-    params.require(:entry).permit(:name, :grade, :score, :category, :parish_id)
+    params.require(:entry).permit(:name, :grade, :score, :category, :parish_id, :category_id)
   end
 end

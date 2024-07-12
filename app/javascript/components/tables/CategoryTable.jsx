@@ -5,11 +5,11 @@ import GenericTableHead from "./GenericTableHead";
 
 export default function CategoryTable(props) {
     
-   const columns = [["name"], ["rank"], ["parish", "name"], ["score"]]
+   const columns = [["name"], ["rank"], ["parish", "name"], ["score"], ["ribbon"]]
 
     return (
         <TableContainer component={Paper}>
-            <Table sx={{ minWidth: 650 }} aria-label="simple table">
+            <Table sx={{ minWidth: 500 }} size="small" aria-label="simple table">
             <GenericTableHead columns={columns}/>
                 {Object.entries(props.grades).map(gradeGroupPair => {
                     return <Tablet 
