@@ -1,11 +1,13 @@
 class Api::CategoriesController < ApplicationController
+    protect_from_forgery with: :null_session
+
     def index
-        @categories = Category.all
+        @categories = Category.order(:id)
         render json: @categories
     end
 
     def update
-        @category = Category.find(category_params[:id])
+        @category = Category.find(params[:id])
         @category.judges = category_params[:judges]
 
         if @category.save

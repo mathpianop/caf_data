@@ -1,7 +1,4 @@
-
---Refactor fetches
-
---Add ribbon calculation
+--Debug numOfJudges update
 
 --Add csv export
 

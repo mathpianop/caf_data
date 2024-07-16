@@ -1,25 +1,23 @@
 import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import Category from "../tables/Category";
 import capitalizeFirstLetter from "../../helpers/capitalizeFirstLetter";
 import AddEntryCard from "../input/AddEntryCard";
-import {Button, Box} from "@mui/material"
 import fetchResource from "../../helpers/fetchResource";
-import entriesWithRibbons from "../../helpers/entriesWithRibbons";
-import MyAppBar from "../MyAppBar";
+import TableTools from "../input/TableTools";
 
 export default function FestivalCategory(props) {
     const [entries, setEntries] = useState();
     const [formData, setFormData] = useState(new FormData());
     const [parishes, setParishes] = useState();
     const [formOpen, setFormOpen] = useState(false);
-
-    
-
+    const [numOfJudges, setNumOfJudges] = useState(props.category.judges);
+    const location = useLocation();
 
     const table = function() {
+ 
 
         if (entries) {
-            console.log(entries)
             const grades = entries.categories[props.category.id]
 
             if (grades) { 
@@ -34,18 +32,13 @@ export default function FestivalCategory(props) {
 
     }
 
-    const addEntryButton = function() {
+    const tableTools = function() {
         if (!formOpen) {
-            return <Button 
-                        variant="contained" 
-                        onClick={() => setFormOpen(true)}
-                        sx={{
-                            bgcolor: "#000000",
-                            mb: "10px"
-                        }}
-                    >  
-                        + Add Entry
-                    </Button>
+            return <TableTools 
+                        setFormOpen={setFormOpen} 
+                        numOfJudges={numOfJudges}
+                        updateNumOfJudges={updateNumOfJudges}
+                    />
         }
     }
 
@@ -104,12 +97,40 @@ export default function FestivalCategory(props) {
             })
             .catch((error) => console.log(error));
     }
+
+    const updateNumOfJudges = function(newNum) {
+        setNumOfJudges(newNum);
+        fetch(`/api/category/${props.category.id}`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+                },
+            body: JSON.stringify({
+                judges: newNum
+            })
+            })
+            .then((response) => response.json())
+            .then((data) => {
+                fetchResource("entries", setEntries);
+                props.getCategories();
+            })
+            .catch((error) => console.log(error));
+    }
  
 
     useEffect(() => {
-        fetchResource("entries", setEntries);
         fetchResource("parishes", setParishes);
+        fetchResource("entries", setEntries)
     }, []);
+
+    useEffect(() => {
+        setNumOfJudges(props.category.judges)
+    }, [location]);
+
+   
+
+
+
 
     
 
@@ -118,11 +139,9 @@ export default function FestivalCategory(props) {
 
     <div className="FestivalCategory">
        
-                 {entryForm()}
-                 {addEntryButton()}
-                 {table()}
-
-
+        {entryForm()}
+        {tableTools()}
+        {table()}
     </div>
 )
 }

@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   get 'entries/show'
   get 'entries/destroy'
   get 'entries/no_helper'
-  
+
   namespace :api do
     get 'parishes/index'
     get 'parishes/create'
@@ -27,7 +27,7 @@ Rails.application.routes.draw do
     delete 'entries/:id', to: "entries#destroy"
 
     get "categories", to: "categories#index"
-    patch "categories", to: "categories#update"
+    patch "category/:id", to: "categories#update"
 
   end
   root 'homepage#index'

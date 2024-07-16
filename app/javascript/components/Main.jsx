@@ -26,6 +26,10 @@ export default function Main() {
   const closeDrawer = function() {
     setSidebarOpen(false);
   }
+
+  const getCategories = function() {
+    fetchResource("categories", setCategories);
+  }
  
   
   const menuItems = function() {
@@ -40,7 +44,7 @@ export default function Main() {
     if (categories) {
       categories.forEach(category => {
         basicItems.splice(1,0, {
-            name: category.name, element: <FestivalCategory category={category}/>
+            name: category.name, element: <FestivalCategory category={category} getCategories={getCategories}/>
           })
       })
     }
@@ -48,9 +52,8 @@ export default function Main() {
     return basicItems;
 }
 
-  useEffect(() => {
-    fetchResource("categories", setCategories);
-  }, [])
+  useEffect(getCategories, []);
+
 
   return (
 
