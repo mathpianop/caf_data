@@ -37,7 +37,7 @@ export default function Main() {
     const basicItems = [
       {name: "dashboard", element: <Dashboard />},
       {name: "parishes", element: <Parishes />},
-      {name: "contacts", element: <Contacts />},
+      // {name: "contacts", element: <Contacts />},
       {name: "summary", element: <Summary />}
     ];
 
