@@ -1,5 +1,5 @@
-import React from "react";
 import fetchResource from "./fetchResource";
+import useForm from "./useForm";
 
 export default function useEntryForm(category, setEntries) {
     const addEntryFields = ["name", "grade", "score", "parishId"];

@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { Box } from "@mui/material";
+
 
 import ParishSelect from "../input/ParishSelect";
 import ParishTable from "../tables/ParishTable";
 import fetchResource from "../../helpers/fetchResource";
+import ParishContact from "../input/ParishContact";
+
+
 
 export default function Parishes() {
     const [parishes, setParishes] = useState([]);
     const [parishId, setParishId] = useState("");
-    const [entries, setEntries] = useState()
+    const [entries, setEntries] = useState();
 
     const findParishById = function() {
       return parishes.find(parish => parishId == parish.id)
@@ -31,17 +34,12 @@ export default function Parishes() {
    const parishContact = function() {
     const parish = findParishById()
     if (parishId !== "") {
-      if (parish.contact) {
-        return (
-          <Box>
-            {`Contact: ${parish.contact.name}, ${parish.contact.email}`}
-          </Box>
-        )
-      } else {
-        return <span>Add Contact</span>
-      }
-      
+      return <ParishContact parish={parish}/>
     }
+   }
+
+   const handleParishSelect = function(e) {
+    setParishId(e.target.value);
    }
 
    
@@ -55,7 +53,7 @@ export default function Parishes() {
 
     return (
         <div className="Parishes">
-          <ParishSelect parishes={parishes} setParishId={setParishId} parishId={parishId}/>
+          <ParishSelect parishes={parishes} onChange={handleParishSelect} parishId={parishId}/>
           {parishContact()}
           {parishResults()}
         </div>

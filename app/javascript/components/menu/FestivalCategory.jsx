@@ -48,7 +48,7 @@ export default function FestivalCategory(props) {
         if (parishes) {
             if (entryForm.formOpen) {
                 return (
-                    <AddCard>
+                    <AddCard title="AddEntry">
                          <AddEntryForm entryForm={entryForm} />
                     </AddCard>
                 )

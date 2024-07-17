@@ -6,13 +6,13 @@ import AddEntryForm from "./AddEntryForm";
 export default function AddCard(props) {
     return (
         <Container >
-            <Card raised sx={{maxWidth: "sm", mb: "10px"}}>
+            <Card raised sx={{maxWidth: "sm", mb: "10px", mt: "10px"}}>
                 <CardHeader
                     sx={{
                         bgcolor: "#000000",
                         color: "#ffffff"
                     }}
-                    title="Add Entry"
+                    title={props.title}
                     titleTypographyProps={{variant:'h6' }}
                 />
                 <CardContent

@@ -8,7 +8,8 @@ export default function AddButton(props) {
             onClick={props.onClick}
             sx={{
                 bgcolor: "#000000",
-                ml: "20px"
+                ml: "20px",
+                mt: "10px"
             }}
         >  
             {props.text}

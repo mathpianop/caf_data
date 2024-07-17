@@ -1,4 +1,6 @@
---Build the awesome contact form!!! Make a new useContactForm hook using useFieldData. Maybe even make a generic useForm hook!!!!!
+--Create contact#create controller method
+--Add email validation to contact form
+--Add error response for entry form
 
 --Add csv export
 
