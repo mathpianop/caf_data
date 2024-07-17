@@ -4,11 +4,6 @@ import { FormControl, InputLabel, Select, MenuItem } from "@mui/material";
 export default function ParishSelect(props) {
 
 
-
-    const handleChange = function(e) {
-        props.setParishId(e.target.value)
-    }
-
     return (
         <FormControl fullWidth required>
             <InputLabel id="parish-select-label">Parish</InputLabel>
@@ -17,7 +12,7 @@ export default function ParishSelect(props) {
             id="parish-select"
             value={props.parishId}
             label="Parish"
-            onChange={handleChange}
+            onChange={props.onChange}
             required={props.required}
             >
                 {props.parishes.map(parish => {

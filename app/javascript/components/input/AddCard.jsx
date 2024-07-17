@@ -3,7 +3,7 @@ import {CardHeader, Card, CardContent} from "@mui/material";
 import { Container } from "@mui/material";
 import AddEntryForm from "./AddEntryForm";
 
-export default function AddEntryCard(props) {
+export default function AddCard(props) {
     return (
         <Container >
             <Card raised sx={{maxWidth: "sm", mb: "10px"}}>
@@ -20,7 +20,7 @@ export default function AddEntryCard(props) {
                         padding: "10px",
                     }}
                 >
-                    <AddEntryForm {...props} />
+                   {props.children}
                 </CardContent>
             </Card>
         </Container>

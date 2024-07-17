@@ -1,63 +1,55 @@
-import React, { useState } from "react";
+import React from "react";
+import { useState, useEffect } from "react";
 import ParishSelect from "./ParishSelect";
-import {TextField, FormGroup, Button, Grid} from "@mui/material"
+import {TextField, Button, Grid} from "@mui/material"
 import NumberSelect from "./NumberSelect";
+import fetchResource from "../../helpers/fetchResource";
 
-export default function AddEntryForm({ formProps, setFormOpen }) {
+export default function AddEntryForm({entryForm}) {
 
-    const [parishId, setParishId] = useState("")
-    const [score, setScore] = useState("")
-    const [grade, setGrade] = useState("")
-    const [name, setName] = useState("");
 
-    const fields = ["parishId", "name", "score", "grade"]
+    const [parishes, setParishes] = useState();
 
-    const handleParishChange = function(id) {
-        setParishId(id)
-        formProps.formData.set("parishId", id)
-    }
+    const fieldData = entryForm.fieldData;
 
-    const handleNameChange = function(event) {
-        setName(event.target.value);
-        formProps.formData.set("name", event.target.value);
-    }
-
-    const handleScoreChange = function(e) {
-        setScore(e.target.value);
-        formProps.formData.set("score", e.target.value)
-    }
-
-    const handleGradeChange = function(e) {
-        setGrade(e.target.value);
-        formProps.formData.set("grade", e.target.value)
-    }
 
     const closeForm = function() {
-        setFormOpen(false);
+        entryForm.setFormOpen(false);
     }
 
-    const allFieldsFilled = function() {
-        return [name, parishId, grade, score].every(field => field && field !== "")
-    }
+    const parishSelect = function() {
+    
+        if (parishes) {
+            return (
+                <ParishSelect 
+                parishes={parishes} 
+                onChange={(e) => fieldData.handleChange("parishId", e)} 
+                parishId={fieldData.data.parishId}
+                required={true}
+                />
+            )
+        }
+
+     }   
+
+     useEffect(() => {
+        fetchResource("parishes", setParishes)
+     }, [])
 
 
     return (
         <form>
             <Grid container spacing={1}>
                 <Grid item xs={12}>
-                    <ParishSelect 
-                        parishes={formProps.parishes} 
-                        setParishId={handleParishChange} 
-                        parishId={parishId}
-                        required={true}
-                    />
+                   {parishSelect()}
                 </Grid>
+
                <Grid item xs={6} sm={6} md={6}>
                     <TextField 
                         id="Name" 
                         label="Name" 
                         variant="outlined" 
-                        onChange={handleNameChange}
+                        onChange={e => fieldData.handleChange("name", e)}
                         sx={{width: "100%"}}
                         required
                     />  
@@ -65,10 +57,10 @@ export default function AddEntryForm({ formProps, setFormOpen }) {
 
                <Grid item xs={4} sm={3} md={3}>
                     <NumberSelect 
-                        value={score} 
-                        handleChange={handleScoreChange} 
+                        value={fieldData.data.score} 
+                        handleChange={e => fieldData.handleChange("score", e)} 
                         min={0}
-                        max={formProps.maxScore}
+                        max={entryForm.maxScore()}
                         label="Score"
                         id="score-select"
                     />
@@ -76,8 +68,8 @@ export default function AddEntryForm({ formProps, setFormOpen }) {
 
                <Grid item xs={4} sm={3} md={3}>
                     <NumberSelect 
-                        value={grade} 
-                        handleChange={handleGradeChange} 
+                        value={fieldData.data.grade} 
+                        handleChange={e => fieldData.handleChange("grade", e)} 
                         min={1}
                         max={12}
                         id="grade-select"
@@ -86,7 +78,7 @@ export default function AddEntryForm({ formProps, setFormOpen }) {
                </Grid>
             </Grid>
             <Button onClick={closeForm}>Cancel</Button>
-            <Button onClick={formProps.submitForm} disabled={!allFieldsFilled()}>Save</Button>
+            <Button onClick={entryForm.submitForm} disabled={!fieldData.allFieldsFilled()}>Save</Button>
             
         </form>
     )

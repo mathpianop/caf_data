@@ -1,5 +1,6 @@
 import React from "react"
 import { Button, FormControl, FormControlLabel, RadioGroup, Radio, FormLabel, Grid} from "@mui/material";
+import AddButton from "./AddButton";
 
 export default function TableTools(props) {
     
@@ -14,17 +15,7 @@ export default function TableTools(props) {
             spacing="10px"
         >
             <Grid item>
-
-                <Button 
-                    variant="contained" 
-                    onClick={() => props.setFormOpen(true)}
-                    sx={{
-                        bgcolor: "#000000",
-                        ml: "20px"
-                    }}
-                >  
-                    + Add Entry
-                </Button>
+                <AddButton text={"+ Add Entry"} onClick={() => props.setFormOpen(true)}/>
             </Grid>
             <Grid item>
                 <FormControl>

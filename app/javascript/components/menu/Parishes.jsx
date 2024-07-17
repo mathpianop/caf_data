@@ -30,12 +30,17 @@ export default function Parishes() {
 
    const parishContact = function() {
     const parish = findParishById()
-    if (parishId !== "" && parish.contact) {
-      return (
+    if (parishId !== "") {
+      if (parish.contact) {
+        return (
           <Box>
             {`Contact: ${parish.contact.name}, ${parish.contact.email}`}
           </Box>
-      )
+        )
+      } else {
+        return <span>Add Contact</span>
+      }
+      
     }
    }
 
