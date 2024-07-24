@@ -34,7 +34,7 @@ export default function Parishes() {
    const parishContact = function() {
     const parish = findParishById()
     if (parishId !== "") {
-      return <ParishContact parish={parish}/>
+      return <ParishContact parish={parish} setParishes={setParishes}/>
     }
    }
 

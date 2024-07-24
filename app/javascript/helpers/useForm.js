@@ -2,13 +2,13 @@ import useFieldData from "./useFieldData";
 import { useState } from "react";
 
 export default function useForm(fields, url, getSendableFormData, onSuccess) {
-    const addContactFields = ["name", "email"];
 
     const fieldData = useFieldData(fields);
     const [formOpen, setFormOpen] = useState(false)
 
 
     const submitForm = function() {
+        console.log(fieldData)
         fetch(url, {
             method: "POST",
             headers: {

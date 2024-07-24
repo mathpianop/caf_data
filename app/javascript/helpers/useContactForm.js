@@ -1,7 +1,7 @@
 import fetchResource from "./fetchResource";
 import useForm from "./useForm";
 
-export default function useContactForm(parishId) {
+export default function useContactForm(parishId, setParishes) {
 
     
     const addContactFields = ["name", "email"];
@@ -15,7 +15,7 @@ export default function useContactForm(parishId) {
         return JSON.stringify({
             name: fieldData.data.name,
             parish_id: parishId,
-            email: fieldData.email
+            email: fieldData.data.email
         })
     }
 

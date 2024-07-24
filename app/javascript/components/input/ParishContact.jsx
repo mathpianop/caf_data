@@ -5,9 +5,9 @@ import AddButton from "./AddButton";
 import useContactForm from "../../helpers/useContactForm";
 import { Box } from "@mui/material";
 
-export default function ParishContact({parish}) {
+export default function ParishContact({parish, setParishes}) {
 
-    const contactForm = useContactForm(parish.id);
+    const contactForm = useContactForm(parish.id, setParishes);
 
     const content = function() {
         if (parish.contact) {
