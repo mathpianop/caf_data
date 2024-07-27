@@ -41,8 +41,6 @@ class Entry < ApplicationRecord
 
 
   def ribbon
-    p max_scores
-    p self.score
         if (self.score <= max_scores[0]) 
             "bronze"
         elsif (self.score <= max_scores[1])

@@ -1,6 +1,10 @@
 import React from "react";
-import {TextField, Button, Grid} from "@mui/material"
+import {TextField, Button, Grid} from "@mui/material";
+import { useState } from "react";
 export default function AddContactForm({contactForm}) {
+
+    const [emailError, setEmailError] = useState(false);
+    const [emailMessage, setEmailMessage] = useState("");
 
       
     const fieldData = contactForm.fieldData;
@@ -9,6 +13,28 @@ export default function AddContactForm({contactForm}) {
     const closeForm = function() {
         contactForm.setFormOpen(false);
     }
+
+    const isValidEmail = function (string) {
+        const validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+        return string.match(validRegex)
+    }
+
+    const validateEmail = function(e) {
+        const invalidEmail = !isValidEmail(e.target.value);
+        setEmailError(invalidEmail);
+        setEmailMessage(invalidEmail ? "Please enter a valid email" : "");
+    }
+
+    const handleEmailChange = function(e) {
+        fieldData.handleChange("email", e);
+        if (emailError) {
+            validateEmail(e);
+        }
+    }
+
+
+
+    
 
 
     return (
@@ -28,11 +54,15 @@ export default function AddContactForm({contactForm}) {
                <Grid item xs={6} sm={6} md={6}>
                     <TextField 
                         id="Email" 
+                        type="email"
                         label="Email" 
                         variant="outlined" 
-                        onChange={e => fieldData.handleChange("email", e)}
+                        onChange={handleEmailChange}
+                        onBlur={validateEmail}
                         sx={{width: "100%"}}
                         required
+                        helperText={emailMessage}
+                        error={emailError}
                     />  
                </Grid>
             </Grid>
