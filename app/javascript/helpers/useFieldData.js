@@ -4,12 +4,22 @@ import { useState } from "react";
 
 export default function useFieldData(fields) {
 
-    const [fieldData, setFieldData] = useState(fields.reduce((data, field) => {
-        data[field] = "";
-        return data;
-    }, {}));
+ 
+    const blankDataFields = function() {
+        return fields.reduce((data, field) => {
+            data[field] = "";
+            return data;
+        }, {})
+    }
+
+ 
+
+    const [fieldData, setFieldData] = useState(blankDataFields());
 
 
+    const clearData = function() {
+        setFieldData(blankDataFields())
+    }
     
     const updateFieldData = function(field, value) {
         setFieldData(data => {
@@ -32,6 +42,8 @@ export default function useFieldData(fields) {
     return {
         data: fieldData,
         handleChange,
-        allFieldsFilled
+        allFieldsFilled,
+        setFieldData,
+        clearData
     }
 }

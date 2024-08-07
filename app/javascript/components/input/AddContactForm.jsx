@@ -10,6 +10,7 @@ export default function AddContactForm({contactForm}) {
     const fieldData = contactForm.fieldData;
 
 
+
     const closeForm = function() {
         contactForm.setFormOpen(false);
     }
@@ -44,7 +45,8 @@ export default function AddContactForm({contactForm}) {
                     <TextField 
                         id="Name" 
                         label="Name" 
-                        variant="outlined" 
+                        variant="outlined"
+                        value={fieldData.data.name}
                         onChange={e => fieldData.handleChange("name", e)}
                         sx={{width: "100%"}}
                         required
@@ -57,6 +59,7 @@ export default function AddContactForm({contactForm}) {
                         type="email"
                         label="Email" 
                         variant="outlined" 
+                        value={fieldData.data.email}
                         onChange={handleEmailChange}
                         onBlur={validateEmail}
                         sx={{width: "100%"}}
@@ -67,7 +70,7 @@ export default function AddContactForm({contactForm}) {
                </Grid>
             </Grid>
             <Button onClick={closeForm}>Cancel</Button>
-            <Button onClick={contactForm.submitForm} disabled={!fieldData.allFieldsFilled()}>Save</Button>
+            <Button onClick={contactForm.submitForm} disabled={!fieldData.allFieldsFilled() || emailError}>Save</Button>
             
         </form>
     )

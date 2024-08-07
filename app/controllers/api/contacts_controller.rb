@@ -7,7 +7,7 @@ class Api::ContactsController < ApplicationController
   end
 
   def create
-    @contact = Contact.new(entry_params)
+    @contact = Contact.new(contact_params)
     if @contact.save!
       render json: @contact
     else
@@ -22,8 +22,20 @@ class Api::ContactsController < ApplicationController
   def destroy
   end
 
+  def update
+    @contact = Contact.find(params[:id])
+    @contact.update(contact_params)
+
+    if @contact.save!
+      render json: @contact
+    else
+      p @contact
+      render json: @contact.errors
+    end
+  end
+
   private
-  def entry_params
+  def contact_params
     params.require(:contact).permit(:name, :email, :parish_id)
   end
 end
