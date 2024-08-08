@@ -1,8 +1,4 @@
 
---Add edit and delete functions to the entry form
-
-use CustomButton?
-
 
 --Add csv export
 

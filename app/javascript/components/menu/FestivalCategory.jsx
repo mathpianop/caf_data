@@ -7,6 +7,8 @@ import AddEntryForm from "../input/AddEntryForm";
 import fetchResource from "../../helpers/fetchResource";
 import TableTools from "../input/TableTools";
 import useEntryForm from "../../helpers/useEntryForm";
+import getSpreadsheetURL from "../../helpers/getSpreadSheetURL";
+import { Box } from "@mui/material";
 
 export default function FestivalCategory(props) {
 
@@ -17,15 +19,18 @@ export default function FestivalCategory(props) {
     const location = useLocation();
     const entryForm = useEntryForm(props.category, setEntries);
 
+    const grades = function() {
+            return entries.categories[props.category.id]
+    }
+
     const table = function() {
 
         if (entries) {
-            const grades = entries.categories[props.category.id]
-
-            if (grades) { 
+            console.log(grades())
+            if (grades()) { 
                 return <Category 
                             categoryName={props.category.name} 
-                            grades={grades}
+                            grades={grades()}
                             entryForm={entryForm}
                         />
             } else {
@@ -36,12 +41,20 @@ export default function FestivalCategory(props) {
     }
 
 
+    const vetSpreadsheetURL = function() {
+        if (entries && grades()) {
+            return getSpreadsheetURL(entries, props.category.id)
+        }
+    }
+
     const tableTools = function() {
         if (!entryForm.formOpen) {
             return <TableTools 
                         openForm={entryForm.openForm} 
                         numOfJudges={numOfJudges}
                         updateNumOfJudges={updateNumOfJudges}
+                        spreadsheetURL={vetSpreadsheetURL()}
+                        categoryName={props.category.name}
                     />
         }
     }
@@ -95,7 +108,10 @@ export default function FestivalCategory(props) {
        
         {entryFormComponent()}
         {tableTools()}
-        {table()}
+        <Box sx={{mt: "10px"}}>
+            {table()}   
+        </Box>
+     
     </div>
 )
 }

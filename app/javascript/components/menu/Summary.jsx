@@ -1,12 +1,25 @@
 import React, { useState, useEffect } from "react";
 import Category from "../tables/Category";
 import fetchResource from "../../helpers/fetchResource";
+import CsvButton from "../input/CsvButton";
+import getSpreadsheetURL from "../../helpers/getSpreadSheetURL";
 
 export default function Summary() {
     const [entries, setEntries] = useState();
 
 
-    const content = function() {
+    const csvButton = function() {
+        if (entries) {
+            return (
+                <CsvButton 
+                    spreadsheetURL={getSpreadsheetURL(entries)}
+                />
+            )
+        }
+       
+    }
+
+    const tables = function() {
         if (entries) { 
             return (Object.entries(entries.categories).map((category) => {
                 const categoryId = category[0]
@@ -32,8 +45,8 @@ export default function Summary() {
   return (
 
     <div className="Summary">
-   
-       {content()}
+        {csvButton()}
+       {tables()}
     </div>
 )
 }
