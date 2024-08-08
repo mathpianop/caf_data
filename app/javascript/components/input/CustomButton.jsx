@@ -1,7 +1,7 @@
 import React from "react";
 import { Button } from "@mui/material";
 
-export default function AddButton(props) {
+export default function CustomButton(props) {
     return (
         <Button 
             variant="contained" 
@@ -12,7 +12,7 @@ export default function AddButton(props) {
                 mt: "10px"
             }}
         >  
-            {props.text}
+            {props.children}
         </Button>
     )
 }

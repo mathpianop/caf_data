@@ -1,6 +1,6 @@
 import React from "react"
-import { Button, FormControl, FormControlLabel, RadioGroup, Radio, FormLabel, Grid} from "@mui/material";
-import AddButton from "./AddButton";
+import { FormControl, FormControlLabel, RadioGroup, Radio, FormLabel, Grid} from "@mui/material";
+import CustomButton from "./CustomButton";
 
 export default function TableTools(props) {
     
@@ -15,7 +15,7 @@ export default function TableTools(props) {
             spacing="10px"
         >
             <Grid item>
-                <AddButton text={"+ Add Entry"} onClick={() => props.setFormOpen(true)}/>
+                <CustomButton onClick={() => props.setFormOpen(true)}>+ Add Entry</CustomButton>
             </Grid>
             <Grid item>
                 <FormControl>

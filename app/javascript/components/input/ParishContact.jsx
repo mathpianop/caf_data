@@ -1,7 +1,7 @@
 import React from "react";
 import AddCard from "./AddCard";
 import AddContactForm from "./AddContactForm";
-import AddButton from "./AddButton";
+import CustomButton from "./CustomButton";
 import useContactForm from "../../helpers/useContactForm";
 import { Box } from "@mui/material";
 import {useEffect} from "react"
@@ -34,7 +34,7 @@ export default function ParishContact({parish, setParishes}) {
             return (
               <Box>
                 <span>{`Contact: ${parish.contact.name}, ${parish.contact.email}`}</span>
-                <AddButton text="Edit" onClick={() => contactForm.setFormOpen(true)}/>
+                <CustomButton onClick={() => contactForm.setFormOpen(true)}>Edit</CustomButton>
               </Box>
             )
           }
@@ -50,7 +50,7 @@ export default function ParishContact({parish, setParishes}) {
         )
       } else if (!contactForm.formOpen && !parish.contact) {
         return (
-          <AddButton text={"+ Add Contact"} onClick={() => contactForm.setFormOpen(true)}/>
+          <CustomButton onClick={() => contactForm.setFormOpen(true)}>+ Add Contact</CustomButton>
         )
       }
      

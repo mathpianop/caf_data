@@ -1,5 +1,4 @@
 import React from "react";
-import { useState } from "react";
 import CategoryHeader from "./CategoryHeader";
 import CategoryTable from "./CategoryTable";
 import {Box} from "@mui/material";

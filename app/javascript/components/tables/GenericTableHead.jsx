@@ -17,7 +17,7 @@ export default function GenericTableHead(props) {
                                     {capitalizeFirstLetter(column[0])}
                                 </TableCell>
                     })}
-                    
+                    <TableCell></TableCell>
                 </TableRow>
             </TableHead>
     )

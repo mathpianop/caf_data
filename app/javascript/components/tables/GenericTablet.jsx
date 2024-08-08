@@ -1,5 +1,7 @@
 import React from "react";
-import {TableHead, TableBody, TableRow, TableCell} from "@mui/material";
+import {TableBody, TableRow, TableCell} from "@mui/material";
+import CustomButtonSmall from "../input/CustomButtomSmall";
+import { Delete, Edit } from "@mui/icons-material";
 
 export default function Tablet(props) {
     const getColumnData = function(entry, column) {
@@ -15,7 +17,7 @@ export default function Tablet(props) {
             <TableRow sx={{ backgroundColor: "#999999"}}>
                     <TableCell 
                         align="center" 
-                        colSpan={props.columns.length} 
+                        colSpan={props.columns.length + 2} 
                         sx={{ color: "#ffffff"}}
                     >  
                         {props.subCategory}
@@ -30,9 +32,16 @@ export default function Tablet(props) {
                     {props.columns.map((column, index) => {
                         return <TableCell key={entry.id + index} align="left">{getColumnData(entry, column)}</TableCell>
                     })}
+                    <TableCell>
+                        <CustomButtonSmall>
+                            <Edit/>
+                        </CustomButtonSmall>
+                        <CustomButtonSmall>
+                            <Delete/>
+                        </CustomButtonSmall>
+                    </TableCell>
                 </TableRow>
             ))}
-            <TableRow></TableRow>
             </TableBody>
     )
 }

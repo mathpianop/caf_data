@@ -6,13 +6,19 @@ export default function useEntryForm(category, setEntries) {
     const url = "/api/entries";
 
     const getSendableFormData = function(fieldData) {
-        return JSON.stringify({
+
+        const formData = {
             name: fieldData.data.name,
             grade: fieldData.data.grade,
             parish_id: fieldData.data.parishId,
             category_id: category.id,
             score: fieldData.data.score
-        })
+        }
+
+        if (fieldData.data.id) {
+            formData.id = fieldData.data.id
+        }
+        return JSON.stringify(formData)
     }
     
     const onSuccess = function() {

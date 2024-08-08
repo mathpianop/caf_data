@@ -1,5 +1,8 @@
 
---Add edit and delete functions to the entry and contact forms (debug)
+--Add edit and delete functions to the entry form
+
+use CustomButton?
+
 
 --Add csv export
 
