@@ -2,6 +2,7 @@ import React from "react";
 import {TableBody, TableRow, TableCell} from "@mui/material";
 import CustomButtonSmall from "../input/CustomButtomSmall";
 import { Delete, Edit } from "@mui/icons-material";
+import destroyEntry from "../../helpers/destroyEntry";
 
 export default function Tablet(props) {
     const getColumnData = function(entry, column) {
@@ -36,7 +37,7 @@ export default function Tablet(props) {
                         <CustomButtonSmall onClick={() => props.entryForm.openForm(entry)}>
                             <Edit/>
                         </CustomButtonSmall>
-                        <CustomButtonSmall>
+                        <CustomButtonSmall onClick={() => destroyEntry(entry.id, props.entryForm.setEntries)}>
                             <Delete/>
                         </CustomButtonSmall>
                     </TableCell>

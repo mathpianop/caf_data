@@ -1,7 +1,7 @@
 import fetchResource from "./fetchResource";
 import useForm from "./useForm";
 
-export default function useEntryForm(category, setEntries) {
+export default function useEntryForm(category, setEntries, getEntries) {
     const addEntryFields = ["name", "grade", "score", "parishId"];
     const url = "/api/entries";
 
@@ -52,6 +52,6 @@ export default function useEntryForm(category, setEntries) {
         }
     }
 
-    return {...form, maxScore, openForm}
+    return {...form, maxScore, openForm, setEntries}
 
 }

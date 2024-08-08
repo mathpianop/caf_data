@@ -13,7 +13,6 @@ class Api::EntriesController < ApplicationController
     if @entry.save!
       render json: @entry
     else
-      p @entry
       render json: @entry.errors
     end
   end
@@ -22,6 +21,12 @@ class Api::EntriesController < ApplicationController
   end
 
   def destroy
+    @entry = Entry.find(params[:id])
+    if @entry.destroy!
+      render json: @entry
+    else
+      render json: @entry.errors
+    end
   end
 
   private
