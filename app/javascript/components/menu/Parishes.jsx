@@ -5,7 +5,7 @@ import ParishSelect from "../input/ParishSelect";
 import ParishTable from "../tables/ParishTable";
 import fetchResource from "../../helpers/fetchResource";
 import ParishContact from "../input/ParishContact";
-
+import { Box } from "@mui/material";
 
 
 export default function Parishes() {
@@ -22,12 +22,12 @@ export default function Parishes() {
    const parishResults = function() {
     
     if (parishId !== "") {
-      if (entries[parishId]) {
+      console.log(entries)
+      if (entries.parishes[parishId]) {
         return <ParishTable categories={entries.parishes[parishId]}/>
       } else {
         return <i>No entries for this parish yet!</i>
       }
-      
     }
    }
 
@@ -52,10 +52,12 @@ export default function Parishes() {
 
 
     return (
-        <div className="Parishes">
+        <div className="Parishes" style={{mt: 10}}>
           <ParishSelect parishes={parishes} onChange={handleParishSelect} parishId={parishId}/>
           {parishContact()}
-          {parishResults()}
+          <Box sx={{mt: "10px"}}>
+            {parishResults()}
+          </Box>
         </div>
     )
 }

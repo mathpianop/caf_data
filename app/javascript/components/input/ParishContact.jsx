@@ -1,10 +1,12 @@
 import React from "react";
 import AddCard from "./AddCard";
 import AddContactForm from "./AddContactForm";
+import CustomButtonSmall from "./CustomButtomSmall";
 import CustomButton from "./CustomButton";
 import useContactForm from "../../helpers/useContactForm";
 import { Box } from "@mui/material";
 import {useEffect} from "react"
+import { Edit } from "@mui/icons-material";
 
 export default function ParishContact({parish, setParishes}) {
 
@@ -34,7 +36,9 @@ export default function ParishContact({parish, setParishes}) {
             return (
               <Box>
                 <span>{`Contact: ${parish.contact.name}, ${parish.contact.email}`}</span>
-                <CustomButton onClick={() => contactForm.setFormOpen(true)}>Edit</CustomButton>
+                <CustomButtonSmall onClick={() => contactForm.setFormOpen(true)}>
+                  <Edit />
+                </CustomButtonSmall>
               </Box>
             )
           }
