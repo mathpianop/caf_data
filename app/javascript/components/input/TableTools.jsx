@@ -15,7 +15,7 @@ export default function TableTools(props) {
             spacing="10px"
         >
             <Grid item>
-                <CustomButton onClick={() => props.setFormOpen(true)}>+ Add Entry</CustomButton>
+                <CustomButton onClick={props.openForm}>+ Add Entry</CustomButton>
             </Grid>
             <Grid item>
                 <FormControl>

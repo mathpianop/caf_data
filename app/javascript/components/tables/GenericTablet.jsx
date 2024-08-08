@@ -33,7 +33,7 @@ export default function Tablet(props) {
                         return <TableCell key={entry.id + index} align="left">{getColumnData(entry, column)}</TableCell>
                     })}
                     <TableCell>
-                        <CustomButtonSmall>
+                        <CustomButtonSmall onClick={() => props.entryForm.openForm(entry)}>
                             <Edit/>
                         </CustomButtonSmall>
                         <CustomButtonSmall>

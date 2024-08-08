@@ -49,6 +49,7 @@ export default function AddEntryForm({entryForm}) {
                         id="Name" 
                         label="Name" 
                         variant="outlined" 
+                        value={fieldData.data.name}
                         onChange={e => fieldData.handleChange("name", e)}
                         sx={{width: "100%"}}
                         required

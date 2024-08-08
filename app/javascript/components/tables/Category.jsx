@@ -21,7 +21,7 @@ export default function Category(props) {
             sx={{mt: "20px"}}
         >
             {header()}
-            <CategoryTable grades={props.grades} />
+            <CategoryTable grades={props.grades} entryForm={props.entryForm}/>
         </Box>
     )
 }

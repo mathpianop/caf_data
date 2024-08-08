@@ -17,6 +17,7 @@ export default function CategoryTable(props) {
                                 key={gradeGroupPair[1][0].id}
                                 columns={columns} 
                                 collections={gradeGroupPair[1]}
+                                entryForm={props.entryForm}
                             />
                 })}
             </Table>

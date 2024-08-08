@@ -20,6 +20,23 @@ export default function useEntryForm(category, setEntries) {
         }
         return JSON.stringify(formData)
     }
+
+
+    const setEntry = function(entry) {
+        form.fieldData.setFieldData({
+            name: entry.name,
+            grade: entry.grade,
+            parishId: entry.parish_id,
+            score: entry.score
+        })
+    }
+
+    const openForm = function(entry) {
+        if (entry) {
+            setEntry(entry)
+        }
+        form.setFormOpen(true);
+    }
     
     const onSuccess = function() {
         fetchResource("entries", setEntries);
@@ -35,6 +52,6 @@ export default function useEntryForm(category, setEntries) {
         }
     }
 
-    return {...form, maxScore}
+    return {...form, maxScore, openForm}
 
 }

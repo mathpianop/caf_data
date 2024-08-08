@@ -26,6 +26,7 @@ export default function FestivalCategory(props) {
                 return <Category 
                             categoryName={props.category.name} 
                             grades={grades}
+                            entryForm={entryForm}
                         />
             } else {
                 return <div><i>{`No entries in the ${capitalizeFirstLetter(props.category.name)} category yet`}</i></div>
@@ -34,10 +35,11 @@ export default function FestivalCategory(props) {
 
     }
 
+
     const tableTools = function() {
         if (!entryForm.formOpen) {
             return <TableTools 
-                        setFormOpen={entryForm.setFormOpen} 
+                        openForm={entryForm.openForm} 
                         numOfJudges={numOfJudges}
                         updateNumOfJudges={updateNumOfJudges}
                     />
